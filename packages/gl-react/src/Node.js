@@ -718,10 +718,10 @@ export default class Node extends Component<Props, *> {
     newdeps: Array<Node | Bus>
   ): [Array<Bus | Node>, Array<Bus | Node>] {
     const olddeps = this.dependencies;
-    const additions = newdeps.filter((node) => olddeps.indexOf(node) === -1);
-    const deletions = olddeps.filter((node) => newdeps.indexOf(node) === -1);
-    additions.forEach((d) => d._addDependent(this));
-    deletions.forEach((d) => d._removeDependent(this));
+    const additions = newdeps.filter(node => olddeps.indexOf(node) === -1);
+    const deletions = olddeps.filter(node => newdeps.indexOf(node) === -1);
+    olddeps.forEach(d => d._removeDependent(this));
+    newdeps.forEach(d => d._addDependent(this));
     this.dependencies = newdeps;
     return [additions, deletions];
   }
